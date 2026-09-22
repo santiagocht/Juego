@@ -1,0 +1,27 @@
+import java.util.Random;
+
+public class Arquero extends Personaje {
+    private int fuerza;
+    private int precision;
+    private Random random;
+
+    public Arquero(int id, String nombre, int nivel, int vidaMaxima, int fuerza, int precision) {
+        super(id, nombre, nivel, vidaMaxima);
+        this.fuerza = fuerza;
+        this.precision = precision;
+        this.random = new Random();
+    }
+
+    @Override
+    public int calcularDano() {
+        int danoBase = (this.fuerza * getNivel()) + this.precision;
+        
+        // Habilidad especial: probabilidad del 30% de duplicar daño
+        if (random.nextDouble() <= 0.30) {
+            System.out.println("   [Habilidad] " + getNombre() + " asesta un GOLPE CRITICO");
+            return danoBase * 2;
+        }
+        
+        return danoBase;
+    }
+}

@@ -1,0 +1,65 @@
+public abstract class Personaje {
+    private int id;
+    private String nombre;
+    private int nivel;
+    private int puntosVida;
+    private int vidaMaxima;
+    private int experiencia;
+    private int expRequeridaSiguienteNivel;
+
+    public Personaje(int id, String nombre, int nivel, int vidaMaxima) {
+        this.id = id;
+        this.nombre = nombre;
+        this.nivel = nivel;
+        this.vidaMaxima = vidaMaxima;
+        this.puntosVida = vidaMaxima;
+        this.experiencia = 0;
+        this.expRequeridaSiguienteNivel = 200; 
+    }
+
+    public abstract int calcularDano();
+
+    public void atacar(Personaje oponente) {
+        int dano = calcularDano();
+        System.out.println(this.nombre + " ataca causando " + dano + " de daño.");
+        oponente.recibirDano(dano);
+    }
+
+    public void recibirDano(int dano) {
+        this.puntosVida -= dano;
+        if (this.puntosVida < 0) {
+            this.puntosVida = 0; 
+        }
+        System.out.println("   -> " + this.nombre + " recibe el impacto. Vida restante: " + this.puntosVida + "/" + this.vidaMaxima);
+    }
+
+    public boolean estaVivo() {
+        return this.puntosVida > 0;
+    }
+
+    public void ganarExperiencia() {
+        this.experiencia += 100;
+        System.out.println(this.nombre + " gana 100 XP. (Total: " + this.experiencia + "/" + this.expRequeridaSiguienteNivel + ")");
+        
+        if (this.experiencia >= this.expRequeridaSiguienteNivel) {
+            subirNivel();
+        }
+    }
+
+    private void subirNivel() {
+        this.experiencia -= this.expRequeridaSiguienteNivel;
+        this.nivel++;
+        this.vidaMaxima += 20;
+        this.puntosVida = this.vidaMaxima;
+        this.expRequeridaSiguienteNivel += 100;
+        
+        System.out.println(" SUBIDA DE NIVEL " + this.nombre + " ha alcanzado el nivel " + this.nivel + ".");
+        System.out.println("   Vida maxima aumentada a " + this.vidaMaxima + " y restaurada por completo.");
+    }
+
+    // Getters y Setters encapsulados
+    public String getNombre() { return nombre; }
+    public int getNivel() { return nivel; }
+    public int getPuntosVida() { return puntosVida; }
+    public int getVidaMaxima() { return vidaMaxima; }
+}

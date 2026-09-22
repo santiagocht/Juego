@@ -1,0 +1,20 @@
+public class Guerrero extends Personaje {
+    private int fuerza;
+
+    public Guerrero(int id, String nombre, int nivel, int vidaMaxima, int fuerza) {
+        super(id, nombre, nivel, vidaMaxima);
+        this.fuerza = fuerza;
+    }
+
+    @Override
+    public int calcularDano() {
+        int danoBase = this.fuerza * getNivel();
+        
+        if (getPuntosVida() <= (getVidaMaxima() * 0.30)) {
+            System.out.println("   [Habilidad] " + getNombre() + " esta herido y entra en furia (+20% Dano)");
+            return (int) (danoBase * 1.2);
+        }
+        
+        return danoBase;
+    }
+}

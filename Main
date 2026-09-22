@@ -1,0 +1,44 @@
+public class Main {
+    
+    public static void enfrentar(Personaje p1, Personaje p2) {
+        System.out.println(" COMBATE: " + p1.getNombre() + " vs " + p2.getNombre());
+        
+        int turno = 1;
+        while (p1.estaVivo() && p2.estaVivo()) {
+            System.out.println("\n Turno " + turno + );
+        
+            p1.atacar(p2);
+            if (!p2.estaVivo()) break;
+            
+            p2.atacar(p1);
+            turno++;
+        }
+        
+        System.out.println("\n RESULTADO DEL COMBATE:");
+        if (p1.estaVivo()) {
+            System.out.println(p2.getNombre() + " ha sido derrotado.");
+            p1.ganarExperiencia();
+        } else {
+            System.out.println(p1.getNombre() + " ha sido derrotado.");
+            p2.ganarExperiencia();
+        }
+    }
+
+    public static void main(String[] args) {
+        Guerrero g1 = new Guerrero(1, "Barbaro Conan", 1, 100, 15);
+        Guerrero g2 = new Guerrero(2, "Leonidas", 1, 120, 12);
+        
+        Mago m1 = new Mago(3, "Gandalf", 1, 70, 18, 60);
+        Mago m2 = new Mago(4, "Merlin", 1, 60, 22, 20);
+        
+        Arquero a1 = new Arquero(5, "Legolas", 1, 80, 10, 15);
+        Arquero a2 = new Arquero(6, "Robin Hood", 1, 85, 12, 10);
+        
+        enfrentar(g1, m1); 
+        enfrentar(a1, g2); 
+        enfrentar(m2, a2); 
+        
+        System.out.println("\n COMBATE POR SUBIDA DE NIVEL ");
+        enfrentar(g1, m2); 
+    }
+}

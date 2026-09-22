@@ -1,0 +1,23 @@
+public class Mago extends Personaje {
+    private int poderMagico;
+    private int mana;
+
+    public Mago(int id, String nombre, int nivel, int vidaMaxima, int poderMagico, int mana) {
+        super(id, nombre, nivel, vidaMaxima);
+        this.poderMagico = poderMagico;
+        this.mana = mana;
+    }
+
+    @Override
+    public int calcularDano() {
+        int danoBase = this.poderMagico * getNivel();
+        
+        if (this.mana >= 20) {
+            this.mana -= 20;
+            System.out.println("   [Habilidad] " + getNombre() + " usa un ataque mágico especial (Mana restante: " + this.mana + ")");
+            return danoBase * 2;
+        }
+        
+        return danoBase;
+    }
+}
